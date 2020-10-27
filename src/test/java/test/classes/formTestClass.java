@@ -1,7 +1,11 @@
 package test.classes;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -13,8 +17,6 @@ import utilities.driverUtility;
 public class formTestClass {
 	WebDriver driver;
 	driverUtility driverUtil;
-	formPageObjects form_po;
-	
     @BeforeTest
 	public void setup(){
     	 String exePath = "C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\resources\\drivers\\chromedriver.exe";
@@ -32,61 +34,62 @@ public class formTestClass {
     	
     	System.out.println("Test started...");
     	
-    	if(!(driverUtil.scrollToElement(form_po.formsCard(),driver))){
+    	if(!(driverUtil.scrollToElement(formPageObjects.formsCard(),driver))){
          	 System.out.println("Failed to scroll to forms card");
     	}
-    	if(!(driverUtil.waitForElement(form_po.formsCard(),driver))){
+    	if(!(driverUtil.waitForElement(formPageObjects.formsCard(),driver))){
             System.out.println("Failed to wait for the form card");
         }
         
-        if(!(driverUtil.clickElementbyXpath(form_po.formsCard(),driver))){
+        if(!(driverUtil.clickElementbyXpath(formPageObjects.formsCard(),driver))){
             System.out.println("Failed to click on the form card");
         }
         
-        if(!(driverUtil.waitForElement(form_po.practiceLink(),driver))){
+        if(!(driverUtil.waitForElement(formPageObjects.practiceLink(),driver))){
             System.out.println("Failed to wait for the practice link");
         }
         
-        if(!(driverUtil.clickElementbyXpath(form_po.practiceLink(),driver))){
+        if(!(driverUtil.clickElementbyXpath(formPageObjects.practiceLink(),driver))){
             System.out.println("Failed to click on the practice link");
         }
         
-        if(!(driverUtil.waitForElement(form_po.firstNameXpath(),driver))){
+        if(!(driverUtil.waitForElement(formPageObjects.firstNameXpath(),driver))){
             System.out.println("Failed to wait for the name text field");
         }
-        if(!(driverUtil.enterTextByXpath(form_po.firstNameXpath(), driver, "automationAssessment@iLABQuality.com"))){
+        if(!(driverUtil.enterTextByXpath(formPageObjects.firstNameXpath(), driver, "siphamandla"))){
         	System.out.println("Failed to enter name");
         }
-        if(!(driverUtil.waitForElement(form_po.lastNameXpath(),driver))){
+        if(!(driverUtil.waitForElement(formPageObjects.lastNameXpath(),driver))){
             System.out.println("Failed to wait for the last mame text field");
         }
-        if(!(driverUtil.enterTextByXpath(form_po.lastNameXpath(), driver, "automationAssessment@iLABQuality.com"))){
+        if(!(driverUtil.enterTextByXpath(formPageObjects.lastNameXpath(), driver, "tyindyi"))){
         	System.out.println("Failed to enter the last name");
         }
         
-        if(!(driverUtil.waitForElement(form_po.maleGenderXpath(),driver))){
-            System.out.println("Failed to wait for the gender radio button");
-        }
-        
-        if(!(driverUtil.clickElementbyXpath(form_po.maleGenderXpath(),driver))){
+        if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.maleGenderXpath(),driver))){
             System.out.println("Failed to select the gender radio button");
         }
         
-        if(!(driverUtil.waitForElement(form_po.mobileNumberXpath(),driver))){
+        if(!(driverUtil.waitForElement(formPageObjects.mobileNumberXpath(),driver))){
             System.out.println("Failed to wait for the mobile number field");
         }
-        if(!(driverUtil.enterTextByXpath(form_po.mobileNumberXpath(), driver, "automationAssessment@iLABQuality.com"))){
+        if(!(driverUtil.enterTextByXpath(formPageObjects.mobileNumberXpath(), driver, "0748146380"))){
         	System.out.println("Failed to enter the mobile number");
         }
-        if(!(driverUtil.scrollToElement(form_po.submitButton(),driver))){
+        if(!(driverUtil.scrollToElement(formPageObjects.submitButton(),driver))){
           	 System.out.println("Failed to scroll to the submit button");
         }
         
-        if(!(driverUtil.clickElementbyXpath(form_po.submitButton(),driver))){
+        if(!(driverUtil.clickElementbyXpath(formPageObjects.submitButton(),driver))){
             System.out.println("Failed to click the submit button");
         }
         
-        System.out.println("Test completed...");
+        WebElement elementToValidate = driver.findElement(By.xpath(formPageObjects.textValidationXpath()));
+        String expectedMessage = "Thanks for submitting the form";
+        String actualMessage = elementToValidate.getText();
+        Assert.assertEquals(actualMessage, expectedMessage);
+    	driverUtil.pause();
+    	System.out.println("Test completed...");
        	
 	}
     
@@ -96,10 +99,5 @@ public class formTestClass {
 		driver.quit();
 	}
 
-//    WebElement elementToValidate = driver.findElement(By.xpath(form_po.textValidationXpath()));
-//    String expectedMessage = "You need to upload at least one file.";
-//    String actualMessage = elementToValidate.getText();
-//    Assert.assertEquals(actualMessage, expectedMessage);
-//	driverUtil.pause();
-//	System.out.println("Test completed...");
+   
 }

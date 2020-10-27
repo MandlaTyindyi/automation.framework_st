@@ -78,6 +78,22 @@ public class driverUtility {
         }
     }
     
+    public boolean clickElementByJavascriptExecutor(String elementXpath, WebDriver driver)
+    {
+        try
+        {
+            System.out.println("INFO: Clicking element by Xpath : " + elementXpath);
+            WebElement elementToClick = driver.findElement(By.xpath(elementXpath));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].checked = true;", elementToClick);
+            return true;
+        }
+        catch (Exception e)
+        {
+            System.err.println("[Error] Failed to click on element by Xpath - " + e.getMessage());
+            return false;
+        }
+    }
+    
     public boolean enterTextByXpath(String elementXpath, WebDriver driver, String textToEnter)
     {
         try
