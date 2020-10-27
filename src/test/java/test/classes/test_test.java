@@ -1,4 +1,4 @@
-package tests;
+package test.classes;
 
 public class test_test {
 	public static void main(String args[]) {

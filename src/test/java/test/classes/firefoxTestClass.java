@@ -1,4 +1,4 @@
-package tests;
+package test.classes;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,9 +8,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import tests.driverUtility;
 
-public class testingInFireFox {
+import utilities.driverUtility;
+
+public class firefoxTestClass {
 	
 	WebDriver driver;
 	driverUtility driverUtil;
