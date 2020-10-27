@@ -65,7 +65,7 @@ public class testingInFireFox {
     
     @BeforeTest
 	public void setup(){
-    	String exePathFF = "/Users/mandla.tyindyi/eclipse-workspace/iLabDriverAutomationAssessment/src/test/resources/drivers/geckodriver";
+    	String exePathFF = "C:\\\\Users\\\\Mkhuseli MPU\\\\Desktop\\\\mandla\\\\s.tyindyi_frmwrk\\\\dataDrivenAutomationFramework\\\\src\\\\test\\\\resources\\\\drivers\\\\geckodriver.exe";
 	    System.setProperty("webdriver.gecko.driver",exePathFF);
 	    String URL = "https://www.ilabquality.com/";
 	    driver = new FirefoxDriver();
