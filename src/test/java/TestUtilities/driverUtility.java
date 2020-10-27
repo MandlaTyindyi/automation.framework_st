@@ -1,4 +1,4 @@
-package utilities;
+package TestUtilities;
 
 import org.openqa.selenium.By;
 import java.util.Random;

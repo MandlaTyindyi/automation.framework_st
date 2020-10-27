@@ -1,5 +1,16 @@
-package test.classes;
+package TestClasses;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,15 +19,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import page.objects.formPageObjects;
-import utilities.driverUtility;
+import com.google.common.collect.Table.Cell;
+
+import PageObjects.formPageObjects;
+import TestUtilities.driverUtility;
 
 
 public class formTestClass {
 	WebDriver driver;
-	driverUtility driverUtil;
+	driverUtility driverUtil = new driverUtility();;
+	
     @BeforeTest
 	public void setup(){
     	 String exePath = "C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\resources\\drivers\\chromedriver.exe";
@@ -24,24 +39,57 @@ public class formTestClass {
 	     String URL = "https://demoqa.com/";
 	     driver = new ChromeDriver();
 	     driver.get(URL);
-	     driver.manage().window().maximize();
-	     driverUtil = new driverUtility();
-	       
-	}
+	     driver.manage().window().maximize();     
+    }
+    
+    @DataProvider(name ="excel-data")
+  	public Object[][] excelDP() throws IOException{
+        	//We are creating an object from the excel sheet data by calling a method that reads data from the excel stored locally in our system
+        	Object[][] arrObj = getExcelData("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources","");
+        	return arrObj;
+  	}
+  	//This method handles the excel - opens it and reads the data from the respective cells using a for-loop & returns it in the form of a string array
+  	public String[][] getExcelData(String fileName, String sheetName){
+        	
+        	String[][] data = null;   	
+  	  	try
+  	  	{
+  	   	FileInputStream fis = new FileInputStream(fileName);
+  	   	XSSFWorkbook wb = new XSSFWorkbook(fis);
+  	   	XSSFSheet sh = wb.getSheet(sheetName);
+  	   	XSSFRow row = sh.getRow(0);
+  	   	int noOfRows = sh.getPhysicalNumberOfRows();
+  	   	int noOfCols = row.getLastCellNum();
+  	   	XSSFCell cell;
+  	   	data = new String[noOfRows-1][noOfCols];
+  	   	
+  	   	for(int i =1; i<noOfRows;i++){
+  		     for(int j=0;j<noOfCols;j++){
+  		    	   row = sh.getRow(i);
+  		    	   cell= row.getCell(j);
+  		    	   data[i-1][j] = cell.getStringCellValue();
+  	   	 	   }
+  	   	}
+  	  	}
+  	  	catch (Exception e) {
+  	     	   System.out.println("The exception is: " +e.getMessage());
+           	}
+        	return data;
+  	}
     
     @Test
 	public void formTest(){
     	
     	System.out.println("Test started...");
     	
-    	if(!(driverUtil.scrollToElement(formPageObjects.formsCard(),driver))){
+    	if(!(driverUtil.scrollToElement(formPageObjects.formCardXpath(),driver))){
          	 System.out.println("Failed to scroll to forms card");
     	}
-    	if(!(driverUtil.waitForElement(formPageObjects.formsCard(),driver))){
+    	if(!(driverUtil.waitForElement(formPageObjects.formCardXpath(),driver))){
             System.out.println("Failed to wait for the form card");
         }
         
-        if(!(driverUtil.clickElementbyXpath(formPageObjects.formsCard(),driver))){
+        if(!(driverUtil.clickElementbyXpath(formPageObjects.formCardXpath(),driver))){
             System.out.println("Failed to click on the form card");
         }
         
@@ -87,7 +135,7 @@ public class formTestClass {
         WebElement elementToValidate = driver.findElement(By.xpath(formPageObjects.textValidationXpath()));
         String expectedMessage = "Thanks for submitting the form";
         String actualMessage = elementToValidate.getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
+        AssertJUnit.assertEquals(actualMessage, expectedMessage);
     	driverUtil.pause();
     	System.out.println("Test completed...");
        	
