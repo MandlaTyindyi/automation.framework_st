@@ -1,25 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="2" passed="1" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-10-27T19:25:17 SAST" name="Suite" finished-at="2020-10-27T19:25:57 SAST" duration-ms="40288">
+  <suite started-at="2020-10-28T07:42:47 SAST" name="Suite" finished-at="2020-10-28T07:43:37 SAST" duration-ms="49749">
     <groups>
     </groups>
-    <test started-at="2020-10-27T19:25:17 SAST" name="Test" finished-at="2020-10-27T19:25:57 SAST" duration-ms="40288">
-      <class name="test.classes.formTestClass">
-        <test-method is-config="true" signature="setup()[pri:0, instance:test.classes.formTestClass@671a5887]" started-at="2020-10-27T19:25:17 SAST" name="setup" finished-at="2020-10-27T19:25:47 SAST" duration-ms="30330" status="PASS">
+    <test started-at="2020-10-28T07:42:47 SAST" name="Test" finished-at="2020-10-28T07:43:37 SAST" duration-ms="49749">
+      <class name="TestClasses.formTestClass">
+        <test-method is-config="true" signature="setup()[pri:0, instance:TestClasses.formTestClass@37858383]" started-at="2020-10-28T07:42:47 SAST" name="setup" finished-at="2020-10-28T07:43:05 SAST" duration-ms="17781" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="formTest()[pri:0, instance:test.classes.formTestClass@671a5887]" started-at="2020-10-27T19:25:47 SAST" name="formTest" finished-at="2020-10-27T19:25:56 SAST" duration-ms="8586" status="PASS">
+        <test-method signature="formTest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestClasses.formTestClass@37858383]" started-at="2020-10-28T07:43:08 SAST" name="formTest" data-provider="excel-data" finished-at="2020-10-28T07:43:16 SAST" duration-ms="8513" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Siphamandla]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Tyindyi]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Male]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[0748146380]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- formTest -->
-        <test-method is-config="true" signature="teardown()[pri:0, instance:test.classes.formTestClass@671a5887]" started-at="2020-10-27T19:25:56 SAST" name="teardown" finished-at="2020-10-27T19:25:57 SAST" duration-ms="1179" status="PASS">
+        <test-method signature="formTest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:TestClasses.formTestClass@37858383]" started-at="2020-10-28T07:43:16 SAST" name="formTest" data-provider="excel-data" finished-at="2020-10-28T07:43:36 SAST" duration-ms="19323" status="FAIL">
+          <params>
+            <param index="0">
+              <value is-null="true"/>
+            </param>
+            <param index="1">
+              <value is-null="true"/>
+            </param>
+            <param index="2">
+              <value is-null="true"/>
+            </param>
+            <param index="3">
+              <value is-null="true"/>
+            </param>
+          </params>
+          <exception class="java.lang.NullPointerException">
+            <message>
+              <![CDATA[Cannot invoke "String.hashCode()" because "Gender" is null]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException: Cannot invoke "String.hashCode()" because "Gender" is null
+at TestClasses.formTestClass.formTest(formTestClass.java:112)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134)
+at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597)
+at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:766)
+at org.testng.TestRunner.run(TestRunner.java:587)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1109)
+at org.testng.TestNG.runSuites(TestNG.java:1039)
+at org.testng.TestNG.run(TestNG.java:1007)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- formTest -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:TestClasses.formTestClass@37858383]" started-at="2020-10-28T07:43:36 SAST" name="teardown" finished-at="2020-10-28T07:43:37 SAST" duration-ms="1293" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-      </class> <!-- test.classes.formTestClass -->
+      </class> <!-- TestClasses.formTestClass -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
