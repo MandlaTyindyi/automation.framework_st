@@ -44,14 +44,13 @@ public class formTestClass {
     
     @DataProvider(name ="excel-data")
   	public Object[][] excelDP() throws IOException{
-        	//We are creating an object from the excel sheet data by calling a method that reads data from the excel stored locally in our system
-        	Object[][] arrObj = getExcelData("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources","");
+        	Object[][] arrObj = getExcelData("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources\\formData.xlsx","formTestData");
         	return arrObj;
   	}
-  	//This method handles the excel - opens it and reads the data from the respective cells using a for-loop & returns it in the form of a string array
+  	
   	public String[][] getExcelData(String fileName, String sheetName){
         	
-        	String[][] data = null;   	
+        String[][] data = null;   	
   	  	try
   	  	{
   	   	FileInputStream fis = new FileInputStream(fileName);
@@ -73,12 +72,12 @@ public class formTestClass {
   	  	}
   	  	catch (Exception e) {
   	     	   System.out.println("The exception is: " +e.getMessage());
-           	}
+        }
         	return data;
   	}
     
-    @Test
-	public void formTest(){
+    @Test(dataProvider ="excel-data")
+	public void formTest(String Name, String Surname, String Gender, String MobileNumber){
     	
     	System.out.println("Test started...");
     	
@@ -104,16 +103,19 @@ public class formTestClass {
         if(!(driverUtil.waitForElement(formPageObjects.firstNameXpath(),driver))){
             System.out.println("Failed to wait for the name text field");
         }
-        if(!(driverUtil.enterTextByXpath(formPageObjects.firstNameXpath(), driver, "siphamandla"))){
+        if(!(driverUtil.enterTextByXpath(formPageObjects.firstNameXpath(), driver, Name))){
         	System.out.println("Failed to enter name");
         }
         if(!(driverUtil.waitForElement(formPageObjects.lastNameXpath(),driver))){
             System.out.println("Failed to wait for the last mame text field");
         }
-        if(!(driverUtil.enterTextByXpath(formPageObjects.lastNameXpath(), driver, "tyindyi"))){
-        	System.out.println("Failed to enter the last name");
+        switch(Gender) {
+        	case "Male":
+        		if(!(driverUtil.enterTextByXpath(formPageObjects.lastNameXpath(), driver, Surname))){
+                	System.out.println("Failed to enter the last name");
+                }
+        		break;
         }
-        
         if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.maleGenderXpath(),driver))){
             System.out.println("Failed to select the gender radio button");
         }
@@ -121,7 +123,7 @@ public class formTestClass {
         if(!(driverUtil.waitForElement(formPageObjects.mobileNumberXpath(),driver))){
             System.out.println("Failed to wait for the mobile number field");
         }
-        if(!(driverUtil.enterTextByXpath(formPageObjects.mobileNumberXpath(), driver, "0748146380"))){
+        if(!(driverUtil.enterTextByXpath(formPageObjects.mobileNumberXpath(), driver, MobileNumber))){
         	System.out.println("Failed to enter the mobile number");
         }
         if(!(driverUtil.scrollToElement(formPageObjects.submitButton(),driver))){

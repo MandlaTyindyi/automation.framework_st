@@ -1,4 +1,4 @@
-package test.classes;
+package TestClasses;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,12 +9,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import utilities.driverUtility;
+import TestUtilities.driverUtility;
 
 public class firefoxTestClass {
 	
 	WebDriver driver;
-	driverUtility driverUtil;
+	driverUtility driverUtil; 
 	
     /**
     * The page objects 
