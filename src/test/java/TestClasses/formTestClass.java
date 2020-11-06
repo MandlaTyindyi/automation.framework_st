@@ -17,7 +17,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -26,6 +28,8 @@ import com.google.common.collect.Table.Cell;
 
 import PageObjects.formPageObjects;
 import TestUtilities.driverUtility;
+import TestUtilities.excelReaderUtility;
+import TestUtilities.excelReaderUtility;
 
 
 public class formTestClass {
@@ -44,40 +48,11 @@ public class formTestClass {
     
     @DataProvider(name ="excel-data")
   	public Object[][] excelDP() throws IOException{
-        	Object[][] arrObj = getExcelData("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources\\formData.xlsx","formTestData");
-        	return arrObj;
+    	return excelReaderUtility.readExcelFile("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
   	}
   	
-  	public String[][] getExcelData(String fileName, String sheetName){
-        	
-        String[][] data = null;   	
-  	  	try
-  	  	{
-  	   	FileInputStream fis = new FileInputStream(fileName);
-  	   	XSSFWorkbook wb = new XSSFWorkbook(fis);
-  	   	XSSFSheet sh = wb.getSheet(sheetName);
-  	   	XSSFRow row = sh.getRow(0);
-  	   	int noOfRows = sh.getPhysicalNumberOfRows();
-  	   	int noOfCols = row.getLastCellNum();
-  	   	XSSFCell cell;
-  	   	data = new String[noOfRows-1][noOfCols];
-  	   	
-  	   	for(int i =1; i<noOfRows;i++){
-  		     for(int j=0;j<noOfCols;j++){
-  		    	   row = sh.getRow(i);
-  		    	   cell= row.getCell(j);
-  		    	   data[i-1][j] = cell.getStringCellValue();
-  	   	 	   }
-  	   	}
-  	  	}
-  	  	catch (Exception e) {
-  	     	   System.out.println("The exception is: " +e.getMessage());
-        }
-        	return data;
-  	}
-    
     @Test(dataProvider ="excel-data")
-	public void formTest(String Name, String Surname, String Gender, String MobileNumber){
+	public void formTest(String testCaseName, String Name, String Surname, String Gender, String MobileNumber){
     	
     	System.out.println("Test started...");
     	
@@ -109,16 +84,27 @@ public class formTestClass {
         if(!(driverUtil.waitForElement(formPageObjects.lastNameXpath(),driver))){
             System.out.println("Failed to wait for the last mame text field");
         }
+        if(!(driverUtil.enterTextByXpath(formPageObjects.lastNameXpath(), driver, Surname))){
+        	System.out.println("Failed to enter the last name");
+        }
         switch(Gender) {
         	case "Male":
-        		if(!(driverUtil.enterTextByXpath(formPageObjects.lastNameXpath(), driver, Surname))){
-                	System.out.println("Failed to enter the last name");
+        		if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.maleGenderXpath(),driver))){
+                    System.out.println("Failed to select the gender radio button");
+                }
+        		break;
+        	case "Female":
+        		if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.femaleGenderXpath(),driver))){
+                    System.out.println("Failed to select the gender radio button");
+                }
+        		break;
+        	case "Other":
+        		if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.otherGenderXpath(),driver))){
+                    System.out.println("Failed to select the gender radio button");
                 }
         		break;
         }
-        if(!(driverUtil.clickElementByJavascriptExecutor(formPageObjects.maleGenderXpath(),driver))){
-            System.out.println("Failed to select the gender radio button");
-        }
+        
         
         if(!(driverUtil.waitForElement(formPageObjects.mobileNumberXpath(),driver))){
             System.out.println("Failed to wait for the mobile number field");
@@ -138,7 +124,8 @@ public class formTestClass {
         String expectedMessage = "Thanks for submitting the form";
         String actualMessage = elementToValidate.getText();
         AssertJUnit.assertEquals(actualMessage, expectedMessage);
-    	driverUtil.pause();
+    	//
+        driverUtil.pause();
     	System.out.println("Test completed...");
        	
 	}
