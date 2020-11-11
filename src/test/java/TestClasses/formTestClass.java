@@ -1,45 +1,31 @@
 package TestClasses;
 
 import org.testng.annotations.Test;
+import org.testng.Assert;
 import org.testng.AssertJUnit;
-import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import com.google.common.collect.Table.Cell;
-
 import PageObjects.formPageObjects;
 import TestUtilities.driverUtility;
 import TestUtilities.excelReaderUtility;
-import TestUtilities.excelReaderUtility;
-
 
 public class formTestClass {
 	WebDriver driver;
-	driverUtility driverUtil = new driverUtility();;
+	driverUtility driverUtil = new driverUtility();
+	int counter=1;
+	String screenshotPath = "C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\test-output\\_screenshots\\test.png";
 	
     @BeforeTest
 	public void setup(){
-    	 String exePath = "C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\resources\\drivers\\chromedriver.exe";
-	     System.setProperty("webdriver.chrome.driver", exePath);
+    	 String exePath = "C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\resources\\drivers\\chromedriver.exe";
+    	 System.setProperty("webdriver.chrome.driver", exePath);
 	     String URL = "https://demoqa.com/";
 	     driver = new ChromeDriver();
 	     driver.get(URL);
@@ -48,11 +34,11 @@ public class formTestClass {
     
     @DataProvider(name ="excel-data")
   	public Object[][] excelDP() throws IOException{
-    	return excelReaderUtility.readExcelFile("C:\\Users\\Mkhuseli MPU\\Desktop\\mandla\\s.tyindyi_frmwrk\\dataDrivenAutomationFramework\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
+    	return excelReaderUtility.readExcelFile("C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
   	}
   	
     @Test(dataProvider ="excel-data")
-	public void formTest(String testCaseName, String Name, String Surname, String Gender, String MobileNumber){
+	public void formTest(String testCaseName, String Name, String Surname, String Gender, String MobileNumber) throws Exception{
     	
     	System.out.println("Test started...");
     	
@@ -62,7 +48,8 @@ public class formTestClass {
     	if(!(driverUtil.waitForElement(formPageObjects.formCardXpath(),driver))){
             System.out.println("Failed to wait for the form card");
         }
-        
+//    	driverUtil.takeScreenShot(driver, screenshotPath);
+//    	counter++;
         if(!(driverUtil.clickElementbyXpath(formPageObjects.formCardXpath(),driver))){
             System.out.println("Failed to click on the form card");
         }
@@ -123,8 +110,8 @@ public class formTestClass {
         WebElement elementToValidate = driver.findElement(By.xpath(formPageObjects.textValidationXpath()));
         String expectedMessage = "Thanks for submitting the form";
         String actualMessage = elementToValidate.getText();
-        AssertJUnit.assertEquals(actualMessage, expectedMessage);
-    	//
+        Assert.assertEquals(actualMessage, expectedMessage);
+    	
         driverUtil.pause();
     	System.out.println("Test completed...");
        	

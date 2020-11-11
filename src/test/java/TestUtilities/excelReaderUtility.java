@@ -17,7 +17,7 @@ public class excelReaderUtility {
 	   	XSSFWorkbook wb = new XSSFWorkbook(fis);
 	   	XSSFSheet sh = wb.getSheet(sheetName);
 	   	
-	   	XSSFRow row = sh.getRow(0);//it was 0
+	   	XSSFRow row = sh.getRow(0);
 	   	int noOfRows = sh.getPhysicalNumberOfRows();
 	   	int noOfCols = row.getLastCellNum();
 	   	

@@ -1,9 +1,18 @@
 package TestUtilities;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+
+import java.io.File;
+import java.nio.file.FileStore;
+import java.nio.file.Files;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Random;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -165,6 +174,30 @@ public class driverUtility {
 
 	   return 0+""+num1+num11+" "+num2+" "+num3;
 	   
+    }
+    
+    public void takeScreenShot(WebDriver webdriver,String fileWithPath) throws Exception{
+    	try{
+    		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+            File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+            File DestFile=new File(fileWithPath);
+            FileUtils.copyFile(SrcFile, DestFile);
+    	}catch(Exception e) {
+    		System.out.println("Issue is: "+e.getMessage());
+    	}
+
+    }
+    
+    public void getDateTimeStamp() throws Exception{
+    	try{
+    		 Date date= new Date();
+    		 long time = date.getTime();
+    		 Timestamp ts = new Timestamp(time);
+    		 System.out.println("Current Time Stamp: "+ts);
+    	}catch(Exception e) {
+    		System.out.println("Issue is: "+e.getMessage());
+    	}
+
     }
 
 }

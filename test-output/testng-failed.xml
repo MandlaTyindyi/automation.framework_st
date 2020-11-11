@@ -6,7 +6,7 @@
       <class name="TestClasses.formTestClass">
         <methods>
           <include name="setup"/>
-          <include name="formTest" invocation-numbers="1"/>
+          <include name="formTest" invocation-numbers="0"/>
           <include name="teardown"/>
         </methods>
       </class> <!-- TestClasses.formTestClass -->
