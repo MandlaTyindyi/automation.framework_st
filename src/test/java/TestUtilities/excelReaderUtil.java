@@ -7,7 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class excelReaderUtility {
+public class excelReaderUtil {
 	public static String[][] readExcelFile(String excelFilePath, String sheetName) throws IOException {
 		
 		String[][] data = null;   	

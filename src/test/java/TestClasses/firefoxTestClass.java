@@ -15,12 +15,12 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import PageObjects.formPageObjects;
-import TestUtilities.driverUtility;
-import TestUtilities.excelReaderUtility;
+import TestUtilities.driverUtil;
+import TestUtilities.excelReaderUtil;
 
 public class firefoxTestClass {
 	WebDriver driver;
-	driverUtility driverUtil = new driverUtility();
+	driverUtil driverUtil = new driverUtil();
 	String screenshotPath = "C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\test-output\\_screenshots";
 	
     @BeforeTest
@@ -35,7 +35,7 @@ public class firefoxTestClass {
     
     @DataProvider(name ="excel-data")
   	public Object[][] excelDP() throws IOException{
-    	return excelReaderUtility.readExcelFile("C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
+    	return excelReaderUtil.readExcelFile("C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
   	}
   	
     @Test(dataProvider ="excel-data")

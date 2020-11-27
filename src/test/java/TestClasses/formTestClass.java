@@ -13,12 +13,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import PageObjects.formPageObjects;
-import TestUtilities.driverUtility;
-import TestUtilities.excelReaderUtility;
+import TestUtilities.driverUtil;
+import TestUtilities.excelReaderUtil;
 
 public class formTestClass {
 	WebDriver driver;
-	driverUtility driverUtil = new driverUtility();
+	driverUtil driverUtil = new driverUtil();
 	int counter=1;
 	String screenshotPath = "C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\test-output\\_screenshots\\test.png";
 	
@@ -34,7 +34,7 @@ public class formTestClass {
     
     @DataProvider(name ="excel-data")
   	public Object[][] excelDP() throws IOException{
-    	return excelReaderUtility.readExcelFile("C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
+    	return excelReaderUtil.readExcelFile("C:\\Users\\Athi\\Desktop\\mandla\\automation.framework_st\\src\\test\\java\\dataSources\\formData.xlsx", "formTestData");
   	}
   	
     @Test(dataProvider ="excel-data")
